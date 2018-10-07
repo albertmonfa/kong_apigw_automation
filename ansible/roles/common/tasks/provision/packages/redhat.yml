@@ -1,0 +1,49 @@
+---
+
+ - name: Update all Packages
+   yum:
+     name: '*'
+     state: latest
+   become: yes
+
+ - name: Add EPEL repository
+   yum_repository:
+     name: epel
+     description: EPEL YUM repo
+     file: external_repos
+     baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+     gpgcheck: no
+     enabled: yes
+   become: yes
+
+ - name: Provisioning Common Packages
+   package:
+     name: "{{ item }}"
+     state: latest
+     update_cache: yes
+   become: yes
+   with_items:
+     - yum-utils
+     - python-requests
+     - nano
+     - python-pip
+     - net-tools
+     - mariadb
+     - git
+     - mariadb-devel
+     - MySQL-python
+
+ - pip:
+    name: pexpect
+    version: 3.3
+   become: yes
+
+ - pip:
+    name: boto3
+   become: yes
+
+ - pip:
+    name: docker-py
+   become: yes
+
+...

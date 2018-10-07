@@ -1,0 +1,10 @@
+---
+
+ - pam_limits:
+    domain: "*"
+    limit_type: soft
+    limit_item: nofile
+    value: unlimited
+   become: yes
+
+...

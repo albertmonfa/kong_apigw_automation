@@ -1,0 +1,6 @@
+---
+
+ - include: roles/kong/tasks/provision/kong_stack.yml
+   tags: role_kong
+
+...

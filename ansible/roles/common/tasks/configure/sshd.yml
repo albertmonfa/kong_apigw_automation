@@ -1,0 +1,9 @@
+---
+
+ - name: Allow sshd Password policy
+   replace:
+    dest: /etc/ssh/sshd_config
+    regexp: 'PasswordAuthentication no'
+    replace: 'PasswordAuthentication yes'
+
+...

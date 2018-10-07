@@ -1,0 +1,12 @@
+---
+
+ - name: Setting vm.max_map_count=262144
+   sysctl:
+    name: vm.max_map_count
+    value: 262144
+    sysctl_set: yes
+    state: present
+    reload: yes
+   become: yes
+
+...

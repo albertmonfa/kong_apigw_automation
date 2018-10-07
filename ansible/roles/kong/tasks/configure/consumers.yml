@@ -1,0 +1,25 @@
+---
+
+    - kong_consumer:
+        admin_url: http://localhost:8001
+        custom_id: 'test'
+        username: 'test'
+        state: 'present'
+      register: result
+      tags: consumers, consumer_test
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'oauth2'
+        consumer_name: 'test'
+        config: {
+                  "name": "test",
+                  "client_id" : '1475603612b54947bfc6515aba1979e6',
+                  "client_secret" : '564bf57ff27246d2a72c40fee53dd3b7',
+                  "redirect_uri": "https://authorize.mydomain.com/"
+                }
+        state: 'present'
+      tags: consumers, consumer_test
+      ignore_errors: yes
+
+...

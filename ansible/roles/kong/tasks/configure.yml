@@ -1,0 +1,12 @@
+---
+
+ - include: roles/kong/tasks/configure/consumers.yml
+   tags: role_kong
+
+ - include: roles/kong/tasks/configure/apis.yml
+   tags: role_kong
+
+ - include: roles/kong/tasks/configure/plugins.yml
+   tags: role_kong
+
+...

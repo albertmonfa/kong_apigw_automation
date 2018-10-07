@@ -1,0 +1,10 @@
+---
+
+ - name: Adding user vagrant to the system groups
+   user:
+     name: vagrant
+     groups: wheel,docker,vagrant
+     append: yes
+   become: yes
+
+...

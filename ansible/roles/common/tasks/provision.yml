@@ -1,0 +1,7 @@
+---
+
+- include: "{{ item }}"
+  with_fileglob:
+    - ./provision/*
+
+...

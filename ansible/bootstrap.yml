@@ -1,0 +1,22 @@
+- hosts: localhost
+  become: yes
+  gather_facts: yes
+  connection: paramiko
+
+  vars:
+    api_default: 'http://api_default.internal/'
+    api_oauthv1: 'http://api_v1.internal/oauth/v1/token'
+    api_tokens: 'https://kong/oauth/v2/tokens'
+    api_authorize: 'https://kong:6081/oauth/v2/authorize'
+    api_1: 'http://api_1_lb.internal:9999/'
+    api_2: 'http://api_2_lb.internal:9999/'
+    api_3: 'http://api_3_lb.internal:9999/'
+
+  roles:
+    - {"role": common, "role_action": "provision"}
+    - {"role": common, "role_action": "configure"}
+    - {"role": docker, "role_action": "provision"}
+    - {"role": vagrant, "role_action": "provision"}
+    - {"role": vagrant, "role_action": "configure"}
+    - {"role": kong, "role_action": "provision" }
+    - {"role": kong, "role_action": "configure"}

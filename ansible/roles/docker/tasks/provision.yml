@@ -1,0 +1,15 @@
+---
+
+- include: "{{ docker_provision_packages }}"
+  with_fileglob:
+    - ./provision/packages*
+  loop_control:
+    loop_var: docker_provision_packages
+
+- include: "{{ docker_provision_item }}"
+  with_fileglob:
+    - ./provision/*
+  loop_control:
+    loop_var: docker_provision_item
+
+...

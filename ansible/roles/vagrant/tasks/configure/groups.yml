@@ -1,0 +1,9 @@
+---
+
+ - include: roles/vagrant/tasks/configure/groups/redhat.yml
+   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+ - include: roles/vagrant/tasks/configure/groups/debian.yml
+   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+...

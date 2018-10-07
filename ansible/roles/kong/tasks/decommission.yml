@@ -1,0 +1,7 @@
+---
+
+ - include: roles/kong/tasks/decommission/kong_stack.yml
+   tags: role_kong
+
+...
+

@@ -1,0 +1,76 @@
+---
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'root'
+        request_path: '/'
+        upstream_url: "{{ api_default }}"
+        state: 'present'
+      tags: apis, api_root
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'oauthv1'
+        request_path: '/oauth/v1'
+        upstream_url: "{{ api_oauthv1 }}"
+        state: 'present'
+      tags: apis, api_oauthv1
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'oauth'
+        request_path: '/fake-sec'
+        upstream_url: "{{ api_default }}"
+        state: 'present'
+      tags: apis, api_oauth2
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'oauth-v2-token'
+        request_path: '/oauth/v2/tokens'
+        upstream_url: "{{ api_tokens }}"
+        strip_request_path : true
+        state: 'present'
+      tags: apis, api_oauth2_tokens
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'oauth-v2-authorize'
+        request_path: '/oauth/v2/authorize'
+        upstream_url: "{{ api_authorize }}"
+        strip_request_path : true
+        state: 'present'
+      tags: apis, api_oauth2_authorize
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'api_1'
+        request_path: '/api-1'
+        upstream_url: "{{ api_1 }}"
+        state: 'present'
+      tags: apis, api_1
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'api_2'
+        request_path: '/api-2'
+        upstream_url: "{{ api_2 }}"
+        state: 'present'
+      tags: apis, api_2
+
+
+    - kong_api:
+        admin_url: http://localhost:8001
+        name: 'api_3'
+        request_path: '/api_3'
+        upstream_url: "{{ api_3 }}"
+        state: 'present'
+      tags: apis, api_3
+
+...

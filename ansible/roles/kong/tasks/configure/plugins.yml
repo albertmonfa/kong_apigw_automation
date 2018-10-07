@@ -1,0 +1,158 @@
+---
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'response-transformer'
+        enabled: 'true'
+        config: {
+                  remove.headers: 'x-varnish,x-powered-by,server,via'
+                }
+        state: 'present'
+      tags: response_transfer, response_transfer_all
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'oauth2'
+        api_name: 'oauth'
+        enabled: 'true'
+        config: {
+                  "enable_client_credentials": true,
+                  "accept_http_if_already_terminated": true,
+                  "scopes": "oauth2"
+                }
+        state: 'present'
+      tags: oauth2, oauth2_fake-sec
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'rate-limiting'
+        api_name: 'oauth'
+        enabled: 'true'
+        config: {
+                  second: 10
+                }
+        state: 'present'
+      tags: rate, rate_fake-sec
+
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'cors'
+        api_name: 'oauth-v2-token'
+        enabled: 'true'
+        config: {
+                  methods: 'POST',
+                  exposed_headers: 'Content-Type',
+                  origin : '*',
+                  headers: 'Content-Type'
+                }
+        state: 'present'
+      tags: cors
+
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'rate-limiting'
+        api_name: 'api_1'
+        enabled: 'true'
+        config: {
+                  second: 10
+                }
+        state: 'present'
+      tags: rate, rate_api1
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'cors'
+        api_name: 'api_1'
+        enabled: 'true'
+        config: {
+                  methods: 'GET,POST,PUT,PATCH,DELETE',
+                  exposed_headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total',
+                  origin : '*',
+                  headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total'
+                }
+        state: 'present'
+      tags: cors, cors_api_1
+
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'oauth2'
+        api_name: 'api_2'
+        enabled: 'false'
+        config: {
+                  "enable_client_credentials": true,
+                  "provision_key": '7b661494fc2b64bf5779e655152b64bf',
+                  "accept_http_if_already_terminated": true,
+                  "scopes": "api_2"
+                }
+        state: 'present'
+      tags: oauth2, oauth2_api_2
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'rate-limiting'
+        api_name: 'api_2'
+        enabled: 'true'
+        config: {
+                  second: 10
+                }
+        state: 'present'
+      tags: rate, rate_api2
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'cors'
+        api_name: 'api2'
+        enabled: 'true'
+        config: {
+                  methods: 'GET,POST,PUT,PATCH,DELETE',
+                  exposed_headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total',
+                  origin : '*',
+                  headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total'
+                }
+        state: 'present'
+      tags: cors, cors_api2
+
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'oauth2'
+        api_name: 'api_3'
+        enabled: 'false'
+        config: {
+                  "enable_client_credentials": true,
+                  "provision_key": '6614947bfc2b64bf5779e65515',
+                  "accept_http_if_already_terminated": true,
+                  "scopes": "api3"
+                }
+        state: 'present'
+      tags: oauth2, oauth2_api3
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'rate-limiting'
+        api_name: 'api_3'
+        enabled: 'true'
+        config: {
+                  second: 10
+                }
+        state: 'present'
+      tags: rate, rate_api3
+
+    - kong_plugin:
+        admin_url: http://localhost:8001
+        name: 'cors'
+        api_name: 'api_3'
+        enabled: 'true'
+        config: {
+                  methods: 'GET,POST,PUT,PATCH,DELETE',
+                  exposed_headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total',
+                  origin : '*',
+                  headers: 'Authorization,Content-Type,x-pagination-limit,x-pagination-page,x-pagination-page-total,x-pagination-total'
+                }
+        state: 'present'
+      tags: cors, cors_api3
+
+...

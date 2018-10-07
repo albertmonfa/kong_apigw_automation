@@ -1,0 +1,11 @@
+---
+
+ - include: roles/docker/tasks/provision/packages/redhat.yml
+   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+   tags: role_docker
+
+ - include: roles/docker/tasks/provision/packages/debian.yml
+   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+   tags: role_docker
+
+...

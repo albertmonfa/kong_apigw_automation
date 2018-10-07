@@ -1,0 +1,11 @@
+---
+
+- name: Create Docker Network for Kong
+  docker_network:
+   name: kong-auto-network
+   driver_options:
+     com.docker.network.bridge.name: kong-net
+   state: present
+  become: yes
+
+...

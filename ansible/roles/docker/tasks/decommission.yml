@@ -1,0 +1,9 @@
+---
+
+- include: "{{ docker_decommission_item }}"
+  with_fileglob:
+    - ./decommission/*
+  loop_control:
+    loop_var: docker_decommission_item
+
+...

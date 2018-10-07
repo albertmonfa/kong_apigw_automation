@@ -1,0 +1,67 @@
+---
+
+ - name: Remove Kong Dashboard Container
+   am_docker_container:
+     name: kong-dashboard
+     image: pgbi/kong-dashboard:v1.3.1
+     hostname: kong-dashboard
+     restart: yes
+     restart_policy: always
+     ports:
+       - "8080:8080"
+     links:
+       - kong
+     networks:
+       - name: kong-auto-network
+     state: absent
+
+ - name: Remove Kong Container
+   am_docker_container:
+     name: kong
+     image: kong:0.9.9
+     hostname: kong
+     restart: yes
+     restart_policy: always
+     recreate: yes
+     ports:
+       - "80:8000"
+       - "443:8443"
+       - "8001:8001"
+       - "7946:7946"
+       - "7946:7946/udp"
+     links:
+       - kong-database
+     networks:
+       - name: kong-auto-network
+     env:
+       KONG_DATABASE: postgres
+       KONG_PG_HOST: kong-database
+     state: absent
+
+ - name: Remove Postgress Kong Container
+   am_docker_container:
+     name: kong-database
+     image: postgres:9.4
+     hostname: kong-database
+     restart: yes
+     recreate: yes
+     restart_policy: always
+     keep_volumes: no
+     ports:
+       - "5432:5432"
+     networks:
+       - name: kong-auto-network
+     env:
+       POSTGRES_USER: kong
+       POSTGRES_DB: kong
+     volumes:
+       - "kong-postgres-db:/var/lib/postgresql/data"
+     state: absent
+
+ - name: Remove Kong Postgress Volume
+   am_docker_volume:
+     name: kong-postgres-db
+     force: yes
+     state: absent
+
+...
